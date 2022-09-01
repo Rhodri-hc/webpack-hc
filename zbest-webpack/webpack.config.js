@@ -5,6 +5,7 @@ const CopyPlugin = require("copy-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin")
 
 /**
  *  treeshaking 触发条件：
@@ -49,6 +50,13 @@ module.exports = {
                 generator: {
                     filename: 'images/[name].[hash:6][ext]',
                   },
+            },
+            {
+                test: /\.ejs$/,
+                loader: "ejs-loader",
+                options: {
+                    esModule: false
+                }
             }
         ]
     },
@@ -60,6 +68,23 @@ module.exports = {
           }),
           new CssMinimizerPlugin()
         ],
+        splitChunks: {
+            chunks: 'all',
+            minSize: 30 * 1024,
+            name: 'common',
+            cacheGroups: {
+              jquery: {
+                test: /jquery/,
+                name: 'jquery',
+                chunks: 'all'
+              },
+              'lodash-es': {
+                test: /lodash-es/,
+                name: 'lodash-es',
+                chunks: 'all'
+              },
+            },
+        },
     },
     plugins:[
         new HtmlWebpackPlugin({
@@ -85,6 +110,7 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: 'css/[name].css',
             chunkFilename: 'css/[name].chunk.css'
-        })
+        }),
+        new CleanWebpackPlugin()
     ]
 }
