@@ -1,2 +1,2 @@
-import "./css/public.css";z
+import "./css/public.css";
 import "./css/login.css";

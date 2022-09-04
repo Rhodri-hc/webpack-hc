@@ -18,16 +18,16 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin")
 module.exports = {
     mode: "development",
     entry: {
-        index: "./src/index.js",
-        login: "./src/login.js"
+        index: path.resolve(__dirname, "../src/index.js"),
+        login: path.resolve(__dirname, "../src/login.js")
     },
     output: {
-        path: path.resolve(__dirname, "./dist"),
+        path: path.resolve(__dirname, "../dist"),
         filename: "js/[name].js"
     },
     devServer: {
         static: {
-            directory: path.join(__dirname, 'dist'),
+            directory: path.join(__dirname, '../dist'),
         },
         compress: true,
         port: 9000,
@@ -63,9 +63,7 @@ module.exports = {
     optimization: {
         minimize: true,
         minimizer: [
-          new UglifyJsPlugin({
-            sourceMap: true
-          }),
+          new UglifyJsPlugin(),
           new CssMinimizerPlugin()
         ],
         splitChunks: {
@@ -89,12 +87,12 @@ module.exports = {
     plugins:[
         new HtmlWebpackPlugin({
             filename: "index.html",
-            template: "./src/index.html",
+            template: path.resolve(__dirname, "../src/index.html"),
             chunks: ["index"]
         }),
         new HtmlWebpackPlugin({
             filename: "login.html",
-            template: "./src/login.html",
+            template: path.resolve(__dirname, "../src/login.html"),
             chunks: ["login"]
         }),
         new webpack.ProvidePlugin({
@@ -103,8 +101,8 @@ module.exports = {
         }),
         new CopyPlugin({
             patterns: [{ 
-                from: path.resolve(__dirname, './src/img'),
-                to: path.resolve(__dirname, './dist/img') 
+                from: path.resolve(__dirname, '../src/img'),
+                to: path.resolve(__dirname, '../dist/img') 
             }]
         }),
         new MiniCssExtractPlugin({
