@@ -3,6 +3,7 @@ node_modules
 /dist
 /webpack-demo/node_modules
 /zbest-webpack/node_modules
+/elm-webpack/node_modules
 
 
 # local env files
