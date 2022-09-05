@@ -15,6 +15,9 @@ var port = process.env.PORT || config.dev.port
 var server = express()
 var compiler = webpack(webpackConfig)
 
+// 核心用途
+// 1、修改webpack 的 fs 为MemoryFileSystem，并将构建结果全部存储到内存中
+// 2、实现请求中间件，用于处理所有资源请求，并到内存中查询相应文件返回
 var devMiddleware = require('webpack-dev-middleware')(compiler, {
     publicPath: webpackConfig.output.publicPath,
     stats: {
@@ -23,6 +26,10 @@ var devMiddleware = require('webpack-dev-middleware')(compiler, {
     }
 })
 
+// 核心功能：实现HMR (HotModuleReplacement)机制
+// 复杂点：
+// 1、需要客户端和服务端同时配合实现（HotModuleReplacementPlugin 和 webpack-hot-middleware 联动使用）
+// 2、客户端和服务端双向通信机制复杂
 var hotMiddleware = require('webpack-hot-middleware')(compiler)
     // force page reload when html-webpack-plugin template changes
 compiler.plugin('compilation', function(compilation) {
@@ -46,10 +53,12 @@ var options = {
     changeOrigin: true,
 }
 if (context.length) {
+    // 注册代理
     server.use(proxyMiddleware(context, options))
 }
 
 // handle fallback for HTML5 history API
+// 解决 history 模式下 404 问题
 server.use(require('connect-history-api-fallback')())
 
 // serve webpack bundle output
@@ -60,6 +69,7 @@ server.use(devMiddleware)
 server.use(hotMiddleware)
 
 // serve pure static assets
+// 静态资源路径
 var staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsSubDirectory)
 server.use(staticPath, express.static('./static'))
 
