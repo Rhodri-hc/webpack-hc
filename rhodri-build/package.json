@@ -1,0 +1,21 @@
+{
+  "name": "rhodri-build",
+  "version": "1.0.0",
+  "description": "learn rhodri build ",
+  "main": "./bin/index.js",
+  "bin": {
+    "rhodri-build": "./bin/index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "rhodri",
+  "license": "ISC",
+  "dependencies": {
+    "commander": "^9.4.0"
+  },
+  "devDependencies": {
+    "semver": "^7.3.7"
+  }
+}
