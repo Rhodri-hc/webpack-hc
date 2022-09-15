@@ -1,8 +1,8 @@
 {
   "name": "rhodri-build",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "learn rhodri build ",
-  "main": "./bin/index.js",
+  "main": "index.js",
   "bin": {
     "rhodri-build": "./bin/index.js"
   },
@@ -13,6 +13,7 @@
   "author": "rhodri",
   "license": "ISC",
   "dependencies": {
+    "chokidar": "^3.5.3",
     "commander": "^9.4.0"
   },
   "devDependencies": {

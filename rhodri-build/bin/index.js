@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+
 const commander = require("commander");
 const { program } = commander;
 const pkg = require("../package.json");
@@ -17,13 +18,13 @@ const MIN_NODE_VERSION = '8.9.0';
         program.version(pkg.version);
 
         program
-            .command(start)
+            .command('start')
             .description('start rhodri-build server')
             .allowUnknownOption()
             .action(startServer)
     
         program
-            .command(build)
+            .command('build')
             .description('build rhodri-build server')
             .allowUnknownOption()
             .action(buildServer)
