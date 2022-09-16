@@ -20,7 +20,31 @@ function runServer(params) {
     //     console.log(err, stdout);
     // })
 
-    cp.spawn()
+    // 3
+    // const child = cp.spawn('node', [path.resolve(__dirname, './DevService.js'), '--force']);
+
+    // child.stdout.on('data', function(data) {
+    //     console.log(data);
+    // });
+
+    // child.stderr.on('data', function(err){
+    //     console.log(err);
+    // });
+    
+    // child.stdout.on('close', function(data){
+    //     console.log('close', data);
+    // });
+
+    const scriptPath = path.resolve(__dirname, './DevService.js')
+    const child = cp.fork(scriptPath, ['--port 8080']);
+
+    // child.on('message', function(data) {
+    //     // 接收来自子进程的消息
+    //     console.log('message from child process');
+    //     console.log(data);
+    // });
+    // child.send('hello child process')
+
 
 }
 
