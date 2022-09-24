@@ -5,12 +5,12 @@
     // process.send('hello main process');
 const DEFAULT_PORT = 8000;
 
-cosnt params = process.argv.slice(2);
+const params = process.argv.slice(2);
 
-cosnt paramsObj = {};
+const paramsObj = {};
 
 params.forEach(param => {
-    cosnt paramArr = param.split(' ');
+    const paramArr = param.split(' ');
     paramsObj[paramArr[0].replace('--', '')] = paramArr[1];
 });
 console.log("paramsObj", paramsObj);
